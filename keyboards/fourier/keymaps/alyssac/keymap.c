@@ -7,8 +7,9 @@ extern keymap_config_t keymap_config;
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 #define _BASE 0
-#define _FN1 1
-#define _FN2 2
+#define _DVORAK 1
+#define _FN1 2
+#define _FN2 3
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -83,13 +84,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  
    , , UP, , , , , , , , , , , \
    , LEFT, DOWN, RIGHT, , , , , , , QUOT, DEL, \
-   , , , , , , , , , , NUBS, , \
+   , , , , , , , , , , BSLS, , \
    , , , , , , , , , 
   ),
 
-  [_FN2] = LAYOUT_kc(
+  [_FN2] = LAYOUT(
  // ,----+----+----+----+----+----|----+----+----+----+----+----+----.
- // |    |    |    |    |    |    |    |    |    |    |    |    |    |
+ // |    |qwer|dvor|    |    |    |    |    |    |    |    |    |    |
  // |----`----`----`----`----`----|----`----`----`----`----`----`----|
  // |     |   | vol_d | vol_u   | p/p |    |    |    |    |    |    |        |
  // |-----`----`----`----`----`----|----`----`----`----`----`--------|
@@ -98,12 +99,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  // |     |    |     |  next track |        |     |      |    |      |
  // `-----+----+-----+----+--------|--------+-----+------+----+------'
 
-   , , , , , , , , , , , , , \
-   , ,VOLU,VOLD,MPLY , , , , , , , , \
-   , , , , , , , , , , , , \
-   , , ,MEDIA_NEXT_TRACK,MEDIA_NEXT_TRACK, , , , ,   
-  )
+   /*, , , , , , , , , , , , , \*/
+   /*, , , , , , , , , , , , \*/
+   /*, , , , , , , , , , , , \*/
+   /*, , , , , , , , ,   */
+   KC_TRNS, TG(_BASE), TG(_DVORAK), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
+   KC_TRNS, KC_TRNS,KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,KC_MEDIA_PLAY_PAUSE, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
+   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
+   KC_TRNS, KC_TRNS, KC_TRNS,KC_MEDIA_NEXT_TRACK,KC_MEDIA_NEXT_TRACK, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS  
+  ),
 
+  [_DVORAK] = LAYOUT_kc(
+ // ,----+----+----+----+----+----|----+----+----+----+----+----+----.
+ // |    |  ' | <  |  > | p  | y  | f  | g  | c  | r  |  l | /  | =  |
+ // |----`----`----`----`----`----|----`----`----`----`----`----`----|
+ // |     | a | o  | e  | u  |  i |  d | h  | t  | n  | s  |  bks   |
+ // |-----`----`----`----`----`----|----`----`----`----`----`--------|
+ // |       | ;  | q  | j  | k  |  x | b  | m  | w  | v  | z  |      |
+ // |-------`----`----`----`----`----|----`----`----`----`----`------|
+ // |     |    |     |             |        |     |      |    |      |
+ // `-----+----+-----+----+--------|--------+-----+------+----+------'
+
+   ,QUOTE,COMMA,DOT,P,Y,F,G,C,R,L,SLASH,EQUAL, \
+   ,A,O,E,U,I,D,H,T,N,S,BSPC, \
+   ,SCLN,Q,J,K,X,B,M,W,V,Z, , \
+   , , , , , , , , ,   
+  )
 };
 
 void esc_gr_finished (qk_tap_dance_state_t *state, void *user_data) {
